@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="style2.css">
+    <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js'></script>
+    <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
+<script>
+  document.addEventListener('DOMContentLoaded', function () {
+    const calendarEl = document.getElementById('calendar');
+
+    const stored = localStorage.getItem('subscriptions');
+    const subscriptions = stored ? JSON.parse(stored) : [];
+
+    const events = subscriptions.map(sub => ({
+      title: `${sub.subName}  (${sub.price}€)`,
+      start: sub.expiration
+    }));
+
+    const calendar = new FullCalendar.Calendar(calendarEl, {
+      initialView: 'dayGridMonth',
+      events: events
+    });
+
+    calendar.render();
+  });
+</script>
+
+    <title>Document</title>
+</head>
+<body>
+    <nav id="navbar">
+        <ul class="nav-links">
+            <li><a href="form.html" class="nav-link">ADD NEW SUBSCRIPTION</a></li>
+            <li><a href="sublist.html" class="nav-link">ALL SUBSCRIPTIONS</a></li>
+        </ul>
+    </nav>
+    <h1>Ημερολόγιο Συνδρομών</h1>
+    <div class="container">
+        
+        <div id="calendar"></div>
+    </div>
+</body>
+</html>
