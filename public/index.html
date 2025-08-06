@@ -9,22 +9,25 @@
 <script>
   document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
+    fetch('/api/subscriptions')
+      .then(response => response.json())
+      .then(subscriptions => {
+          const events = subscriptions.map(sub => ({
+            title: `${sub.clientName} ${sub.subName} (${sub.price}€)`,
+            start: sub.expiration
+            }));
 
-    const stored = localStorage.getItem('subscriptions');
-    const subscriptions = stored ? JSON.parse(stored) : [];
+      const calendar = new FullCalendar.Calendar(calendarEl, {
+          initialView: 'dayGridMonth',
+          events: events
+        });
 
-    const events = subscriptions.map(sub => ({
-      title: `${sub.subName}  (${sub.price}€)`,
-      start: sub.expiration
-    }));
-
-    const calendar = new FullCalendar.Calendar(calendarEl, {
-      initialView: 'dayGridMonth',
-      events: events
-    });
-
-    calendar.render();
-  });
+          calendar.render();
+          })
+          .catch(error => {
+              console.error('Error fetching subscriptions:', error);
+          });
+        });
 </script>
 
     <title>Document</title>

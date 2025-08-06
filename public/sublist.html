@@ -13,8 +13,15 @@
             <li><a href="form.html" class="nav-link">ADD NEW SUBSCRIPTION</a></li>
         </ul>
     </nav>
+    <h1>Subscriptions</h1>
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search..">
     <div class="container">
         <ul id="sub-list"></ul>
+    </div>
+    <div class="pagination">
+        <a href="javascript:prevPage()" id="btn_prev">&#8249;</a>
+        <p id="page"></p>
+        <a href="javascript:nextPage()" id="btn_next">&#8250;</a>
     </div>
     <script src="list.js"></script>
 </body>
