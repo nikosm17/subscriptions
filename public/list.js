@@ -32,18 +32,23 @@ fetch('/api/subscriptions')
 function myFunction() {
   const input = document.getElementById('myInput');
   const filter = input.value.toUpperCase();
-  const ul = document.getElementById("sub-list");
-  const items = ul.getElementsByTagName("li");
 
-  for (let i = 0; i < items.length; i++) {
-    const txtValue = items[i].textContent || items[i].innerText;
-    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-      items[i].style.display = "";
-    } else {
-      items[i].style.display = "none";
-    }
+  if (filter.trim() === "") {
+    changePage(current_page);
+    document.querySelector(".pagination").style.display = "flex";
+  } else {
+    const filteredItems = allItems.filter(item => {
+      const text = item.textContent || item.innerText;
+      return text.toUpperCase().includes(filter);
+    });
+
+    const list = document.getElementById("sub-list");
+    list.innerHTML = "";
+    filteredItems.forEach(item => list.appendChild(item));
+    document.querySelector(".pagination").style.display = "none";
   }
 }
+
 
 let current_page = 1;
 let records_per_page = 7;

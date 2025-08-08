@@ -14,21 +14,23 @@ app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
 
 const transporter = nodemailer.createTransport({
-  service: 'gmail',
+  host: "mail.citystore.gr",
+  port: 465,
+  secure: true, // true for 465, false for other ports
   auth: {
-    user:'exampleproject12345@gmail.com',
-    pass: 'example1234'
+    user: "antonis@citystore.gr",
+    pass: "k5zyHnJjC3RZ",
   }
 });
 
 function sendReminderEmail(sub){
   const mailOptions = {
-    from: 'exampleproject12345@gmail.com',
-    to: 'nikos.bolanos99@gmail.com',
-    subject: `Reminder: ${sub.subName} for ${sub.clientName} expires in 2 days`,
+    from: 'antonis@citystore.gr',
+    to: 'support@citystore.gr',
+    subject: `Λήξη Συνδρομής ${sub.subName} για ${sub.clientName} λήγει σε 8 μέρες`,
     text: `The subscription of "${sub.subName}" for client "${sub.clientName}" is expiring on ${sub.expiration}.
   
-  Annual Cost: ${sub.price}`
+  Annual Cost: ${sub.price}€`
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -40,13 +42,16 @@ transporter.sendMail(mailOptions, function(error, info){
 });
 }
 
-cron.schedule('0 8 * * *', () => {
-  console.log('[CRON] Checking for subscriptions expiring in 2 days...');
+const db = new sqlite3.Database('./subscriptions.db', connected);
+
+cron.schedule('0 7 * * *', () => {
+  console.log('[CRON] Checking for subscriptions expiring in 8 days...');
 
   const today = new Date();
-  const twoDaysLater = new Date(today);
-  twoDaysLater.setDate(today.getDate() + 2);
-  const targetDate = twoDaysLater.toISOString().split('T')[0];
+  const eightDaysLater = new Date(today);
+  eightDaysLater.setDate(today.getDate() + 8);
+  const targetDate = eightDaysLater.toLocaleDateString('sv-SE');
+
 
   const query = 'SELECT * FROM subscriptions WHERE expiration = ?';
   db.all(query, [targetDate], (err, rows) => {
@@ -56,15 +61,13 @@ cron.schedule('0 8 * * *', () => {
     }
 
     if (rows.length === 0) {
-      console.log('No subscriptions expiring in 2 days.');
+      console.log('No subscriptions expiring in 8 days.');
       return;
     }
 
     rows.forEach(sub => sendReminderEmail(sub));
   });
 });
-
-const db = new sqlite3.Database('./subscriptions.db', connected);
 
 function connected(err){
     if (err){
