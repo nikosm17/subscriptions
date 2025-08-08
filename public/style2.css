@@ -58,3 +58,15 @@ h1{
 .nav-links a:hover {
     background-color: #120d36;
 }
+/* Allow event titles to wrap and expand cell height */
+.fc .fc-daygrid-event {
+  white-space: normal;
+  overflow: visible;
+  text-overflow: initial;
+  height: auto;
+  padding: 2px 4px;
+  font-size: 0.85em;
+  line-height: 1.2em;
+}
+
+
