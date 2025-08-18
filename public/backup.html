@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Backup</title>
+    <link rel="stylesheet" href="style4.css">
+    <link rel="icon" type="image/x-icon" href="favicon.jpg">        
+</head>
+<body>
+    <nav id="navbar">
+        <ul class="nav-links">
+            <li><a href="index.html" class="nav-link">HOME</a></li>
+            <li><a href="form.html" class="nav-link">ADD NEW SUBSCRIPTION</a></li>
+            <li><a href="sublist.html" class="nav-link">ALL SUBSCRIPTIONS</a></li> 
+        </ul>
+    </nav>
+    <div class="container-box">
+        <div class="container">
+            <h1>Download</h1>
+            <img src="backup.png">
+            <button onclick="downloadDatabase()">Download DB</button>
+        </div>
+        <div class="container">
+            <h1>Upload</h1>
+            <img src="upload.png">
+            <input type="file" id="dbFileInput" accept=".db" />
+            <button onclick="uploadDatabase()">Upload DB</button>
+        </div>
+    </div>      
+    <script>
+        function downloadDatabase() {
+            window.location.href = '/download-db';
+        }
+        function uploadDatabase() {
+            const fileInput = document.getElementById('dbFileInput');
+            const file = fileInput.files[0];
+
+        if (!file) {
+            alert('Please select a .db file first.');
+            return;
+        }
+
+        const formData = new FormData();
+        formData.append('database', file); // "database" matches multer's upload.single('database')
+
+        fetch('/upload-db', {
+            method: 'POST',
+            body: formData
+         })
+        .then(response => response.text())
+        .then(result => {
+            alert(result);
+        })
+        .catch(error => {
+            console.error('Upload error:', error);
+            alert('Upload failed: ' + error.message);
+        });
+    }
+    </script>
+</body>
+</html>

@@ -5,6 +5,19 @@ const bodyParser = require('body-parser');
 const path = require('path');
 const nodemailer = require('nodemailer');
 const cron = require('node-cron');
+const multer = require('multer');
+
+const storage = multer.diskStorage({
+  destination: (req, file, cb) => {
+    cb(null, __dirname); // Save in root folder of the server
+  },
+  filename: (req, file, cb) => {
+    cb(null, 'subscriptions.db'); // Overwrite existing DB file
+  }
+});
+
+const upload = multer({ storage: storage });
+
 
 const app = express();
 const PORT = 3000;
@@ -118,6 +131,25 @@ app.delete('/api/subscriptions/:id', (req, res) => {
     if (err) return res.status(500).json({ error: err.message });
     res.json({ deleted: this.changes });
   });
+});
+
+app.get('/download-db', (req, res) => {
+  const dbPath = path.join(__dirname, 'subscriptions.db');
+  console.log('Database path:', dbPath);
+  res.download(dbPath, 'subscriptions.db', (err) => {
+    if (err) {
+      console.error('Error sending the database file:', err);
+      res.status(500).send('Failed to download database.');
+    }
+  });
+});
+
+app.post('/upload-db', upload.single('database'), (req, res) => {
+  if (!req.file) {
+    return res.status(400).send('No file uploaded.');
+  }
+
+  res.send('Database uploaded and replaced successfully.');
 });
 
 app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));

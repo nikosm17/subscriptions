@@ -12,6 +12,10 @@ body{
   background: #f9f9f9;
 }
 
+h1{
+  margin-top: 70px;
+}
+
 #navbar {
   background-color: #2c2638;
   position: fixed;
@@ -58,10 +62,11 @@ body{
 #sub-list {
   list-style: none;
   padding: 0;
-  margin-top: 1em;
+  margin-top: 1.2em;
   display: flex;
   flex-direction: column;
   gap: 10px;
+  overflow-y: hidden;
 }
 
 .sub-row {
@@ -101,7 +106,7 @@ div{
 }
 
 .pagination{
-  background-color: #fff;
+  background-color:   #fff;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   width: 450px;
   height: 75px;
