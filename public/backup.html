@@ -8,12 +8,35 @@
     <link rel="icon" type="image/x-icon" href="favicon.jpg">        
 </head>
 <body>
-    <nav id="navbar">
-        <ul class="nav-links">
-            <li><a href="index.html" class="nav-link">HOME</a></li>
-            <li><a href="form.html" class="nav-link">ADD NEW SUBSCRIPTION</a></li>
-            <li><a href="sublist.html" class="nav-link">ALL SUBSCRIPTIONS</a></li> 
-        </ul>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" class="logo-icon">
+            </a>
+            
+        <div class="nav-links">
+            <a href="index.html" class="nav-btn btn-primary">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M3 12l9-9 9 9M4 10v10a1 1 0 001 1h6m8-11v10a1 1 0 01-1 1h-6"></path>
+                </svg>
+                 Home
+            </a>
+                
+            <a href="form.html" class="nav-btn btn-secondary">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                </svg>
+                Add New Subscription
+            </a>
+
+            <a href="backup.html" class="nav-btn btn-secondary">
+                <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                </svg>
+                All Subscriptions
+            </a>
+        </div>
+        </div>
     </nav>
     <div class="container-box">
         <div class="container">
@@ -23,7 +46,7 @@
         </div>
         <div class="container">
             <h1>Upload</h1>
-            <img src="upload.png">
+            <img src="upload.png" class="upload">
             <input type="file" id="dbFileInput" accept=".db" />
             <button onclick="uploadDatabase()">Upload DB</button>
         </div>
@@ -42,7 +65,7 @@
         }
 
         const formData = new FormData();
-        formData.append('database', file); // "database" matches multer's upload.single('database')
+        formData.append('database', file); 
 
         fetch('/upload-db', {
             method: 'POST',

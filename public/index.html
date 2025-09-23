@@ -6,7 +6,8 @@
     <link rel="stylesheet" href="style2.css">
     <script src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js'></script>
     <script src="https://cdn.jsdelivr.net/npm/fullcalendar@6.1.18/index.global.min.js"></script>
-<script>
+<script> 
+//Calendar rendering
   document.addEventListener('DOMContentLoaded', function () {
     const calendarEl = document.getElementById('calendar');
     fetch('/api/subscriptions')
@@ -34,16 +35,38 @@
     <link rel="icon" type="image/x-icon" href="favicon.jpg">
 </head>
 <body>
-    <nav id="navbar">
-        <ul class="nav-links">
-            <li><a href="form.html" class="nav-link">ADD NEW SUBSCRIPTION</a></li>
-            <li><a href="sublist.html" class="nav-link">ALL SUBSCRIPTIONS</a></li>
-            <li><a href="backup.html" class="nav-link">BACKUP</a></li>
-        </ul>
+    <nav class="navbar">
+        <div class="nav-container">
+            <a href="index.html" class="logo">
+                <img src="logo.png" class="logo-icon">
+            </a>
+            
+            <div class="nav-links">
+                <a href="form.html" class="nav-btn btn-primary">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M12 4v16m8-8H4"></path>
+                    </svg>
+                    Add New Subscription
+                </a>
+                
+                <a href="sublist.html" class="nav-btn btn-secondary">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5H7a2 2 0 00-2 2v12a2 2 0 002 2h10a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2"></path>
+                    </svg>
+                    All Subscriptions
+                </a>
+
+                <a href="backup.html" class="nav-btn btn-secondary">
+                    <svg class="icon" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                        <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M8 7H5a2 2 0 00-2 2v9a2 2 0 002 2h14a2 2 0 002-2V9a2 2 0 00-2-2h-3m-1 4l-3 3m0 0l-3-3m3 3V4"></path>
+                    </svg>
+                    Backup
+                </a>
+            </div>
+        </div>
     </nav>
-    <h1>Ημερολόγιο Συνδρομών</h1>
+    <h1>Calendar</h1>
     <div class="container">
-        
         <div id="calendar"></div>
     </div>
 </body>

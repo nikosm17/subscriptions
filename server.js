@@ -55,11 +55,14 @@ transporter.sendMail(mailOptions, function(error, info){
 });
 }
 
+//Connection with database
 const db = new sqlite3.Database('./subscriptions.db', connected);
 
-cron.schedule('0 7 * * *', () => {
+//Daily check time for expiring subs
+cron.schedule('29 12 * * *', () => {
   console.log('[CRON] Checking for subscriptions expiring in 8 days...');
 
+  //How many days before to check the expiring subs
   const today = new Date();
   const eightDaysLater = new Date(today);
   eightDaysLater.setDate(today.getDate() + 8);
@@ -116,6 +119,7 @@ app.get('/api/subscriptions', (req, res) => {
   });
 });
 
+//Subscription post
 app.post('/api/subscriptions', (req, res) => {
   const { clientName, subName, expiration, price } = req.body;
   db.run('INSERT INTO subscriptions (clientName, subName, expiration, price) VALUES (?, ?, ?, ?)',
@@ -126,6 +130,7 @@ app.post('/api/subscriptions', (req, res) => {
     });
 });
 
+//Subscription delete 
 app.delete('/api/subscriptions/:id', (req, res) => {
   db.run('DELETE FROM subscriptions WHERE id = ?', [req.params.id], function (err) {
     if (err) return res.status(500).json({ error: err.message });
@@ -133,6 +138,7 @@ app.delete('/api/subscriptions/:id', (req, res) => {
   });
 });
 
+//Database download
 app.get('/download-db', (req, res) => {
   const dbPath = path.join(__dirname, 'subscriptions.db');
   console.log('Database path:', dbPath);
@@ -144,6 +150,7 @@ app.get('/download-db', (req, res) => {
   });
 });
 
+//Uploading and replacing Database
 app.post('/upload-db', upload.single('database'), (req, res) => {
   if (!req.file) {
     return res.status(400).send('No file uploaded.');

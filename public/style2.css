@@ -1,72 +1,165 @@
-body{
-    font-family: sans-serif;
-    padding: 2rem;
-    max-width: 800px;
-    margin: auto;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    min-height: 100vh;
-    flex-direction: column;
-    gap: 2rem;
-    background: #f9f9f9;
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
 }
-.container {
-    width: 1200px;
-    height: 600px;
-    background-color: #fff;
-    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    border-radius: 10px;
-    padding: 30px;
+
+body {
+    font-family: 'Segoe UI', Roboto, sans-serif;
+    background-color: #f8fafc;
 }
-h1{
-    text-align: center;
-}
-#calendar {
-    width: 100%;
-    height: 100%;
-}
-#navbar {
-    background-color: #2c2638;
-    position: fixed;
+
+.navbar {
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-bottom: 1px solid rgba(0, 0, 0, 0.08);
+    padding: 0;
+    position: static;
     top: 0;
-    width: 100%;
-    padding: 20px 0;
-    z-index: 10;
+    z-index: 1000;
+    box-shadow: 0 1px 20px rgba(0, 0, 0, 0.08);
+}
+
+.nav-container {
+    max-width: 1200px;
+    margin: 0 auto;
     display: flex;
-    justify-content: center;
-    font-size: 18px;
-    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.2);
+    align-items: center;
+    justify-content: space-between;
+    padding: 0 2rem;
+    height: 94px;
+}
+
+
+.logo:hover {
+    transform: translateY(-1px);
+}
+
+.logo-icon {
+    width: 220px;
+    height: 50px;
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center
 }
 
 .nav-links {
     display: flex;
-    list-style: none;
-    gap: 40px;
-    margin: 10;
-    padding: 0;
+    gap: 0.75rem;
+    align-items: center;
 }
 
-.nav-links a {
-    color: white;
+.nav-btn {
+    padding: 0.625rem 1.25rem;
+    border: none;
+    border-radius: 8px;
+    font-weight: 500;
+    font-size: 0.875rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
     text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 30px;
-    transition: background-color 0.3s ease;
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    position: relative;
 }
 
-.nav-links a:hover {
-    background-color: #120d36;
+.btn-primary {
+    background: linear-gradient(135deg,     #f6ad55, #e07125);
+    color: white;
+    box-shadow: 0 1px 3px rgba(59, 130, 246, 0.3);
 }
-/* Allow event titles to wrap and expand cell height */
+
+.btn-primary:hover {
+    transform: translateY(-1px);
+    box-shadow: 0 4px 12px rgba(246, 171, 59, 0.4);
+}
+
+.btn-secondary {
+    background: #f8fafc;
+    color: #374151;
+    border: 1px solid #e5e7eb;
+}
+
+.btn-secondary:hover {
+    background: #f1f5f9;
+    border-color: #d1d5db;
+    transform: translateY(-1px);
+}
+
+.icon {
+    width: 16px;
+    height: 16px;
+}
+
+h1 {
+    text-align: center;
+    margin: 2rem 0;
+    color: #1f2937;
+    font-size: 2.5rem;
+    font-weight: 700;
+    margin-top: 70px;
+}
+
+.container {
+    width: 1300px;
+    max-width: 90vw;
+    height: 700px;
+    background-color: #fff;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    padding: 30px;
+    margin: 0 auto 2rem auto; 
+    margin-top: 2 rem;
+}
+
+#calendar {
+    width: 100%;
+    height: 100%;
+}
+
 .fc .fc-daygrid-event {
-  white-space: normal;
-  overflow: visible;
-  text-overflow: initial;
-  height: auto;
-  padding: 2px 4px;
-  font-size: 0.85em;
-  line-height: 1.2em;
+    white-space: normal;
+    overflow: visible;
+    text-overflow: initial;
+    height: auto;
+    padding: 2px 4px;
+    font-size: 0.85em;
+    line-height: 1.2em;
 }
 
+/* Mobile responsiveness */
+@media (max-width: 768px) {
+  .nav-container {
+    flex-direction: column;   
+    align-items: center;    
+    padding: 1rem;           
+    height: auto;
+    gap: 0.75rem;           
+  }
 
+  .logo-icon {
+    max-width: 150px;         
+    height: auto;
+    margin-bottom: 0.5rem;    
+  }
+
+  .nav-links {
+    flex-direction: column;  
+    width: 100%;             
+    gap: 0.5rem;              
+    align-items: center;      
+  }
+
+  .nav-btn {
+    width: 80%;               
+    text-align: center;       
+    font-size: 0.9rem;        
+    padding: 0.5rem 0;        
+  }
+  #calendar{
+    height: 100%;
+    width: 100%;
+  }
+}
