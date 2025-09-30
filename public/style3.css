@@ -120,7 +120,7 @@ h1 {
   display: grid;
   grid-template-columns: repeat(5, 1fr);
   align-items: center;
-  padding: 12px;
+  padding: auto;
 }
 
 .remove {
@@ -184,7 +184,7 @@ h1 {
   }
 
   .logo-icon {
-    max-width: 150px;         
+    max-width: 250px;         
     height: auto;
     margin-bottom: 0.5rem;    
   }
@@ -204,6 +204,16 @@ h1 {
   }
   #myInput{
     width: 70%;
+  }
+  .sub-row{
+    font-size: 14px;
+  }
+  .container{
+    padding: 10px;
+    margin: 1rem 1rem 1rem 1rem;
+  }
+  .pagination{
+    width: 93%
   }
 }
 

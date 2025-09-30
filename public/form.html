@@ -4,7 +4,7 @@
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
   <title>Subscriptions Tracker</title>
-  <link rel="icon" type="image/x-icon" href="favicon.jpg">
+  <link rel="icon" type="image/x-icon" href="favicon.png">
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
@@ -43,23 +43,16 @@
     <h1>Subscriptions Tracker</h1>
 
     <form id="subscription-form" method="POST">
-      <input list="browsers" id="client-name" name="myBrowser" placeholder="Client Name"/>
-        <datalist id="browsers">
+      <input list="clients" id="client-name" name="clients" placeholder="Client Name"/>
+        <datalist id="clients">
           <option value="Ixian Grand">
           <option value="Oktober">
           <option value="Angela">
           <option value="Port Royal">
-          <option value="Safari">
-          <option value="Microsoft Edge">
         </datalist>
-        <input list="browsers" id="sub-name" name="myBrowser" placeholder="Subscription Name"/>
-        <datalist id="browsers">
-          <option value="Chrome">
-          <option value="Firefox">
-          <option value="Internet Explorer">
-          <option value="Opera">
-          <option value="Safari">
-          <option value="Microsoft Edge">
+        <input list="subs" id="sub-name" name="subs" placeholder="Subscription Name"/>
+        <datalist id="subs">
+          <option value="Office 365">
         </datalist>
       <label for="expiration">Expiration Date:</label>
       <input type="date" id="expiration" placeholder="Expiration Date" />

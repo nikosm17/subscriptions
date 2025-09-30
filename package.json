@@ -19,5 +19,12 @@
     "node-cron": "^4.2.1",
     "nodemailer": "^7.0.5",
     "sqlite3": "^5.1.7"
-  }
+  },
+  "bin": "server.js",
+  "pkg": {
+  "assets": [
+    "public/**/*",
+    "subscriptions.db"
+  ]
+}
 }

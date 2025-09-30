@@ -1,4 +1,5 @@
 const express = require('express');
+const { exec } = require('child_process');
 const sqlite3 = require('sqlite3').verbose();
 const cors = require('cors');
 const bodyParser = require('body-parser');
@@ -25,6 +26,9 @@ const PORT = 3000;
 app.use(cors());
 app.use(bodyParser.json());
 app.use(express.static(path.join(__dirname, 'public')));
+app.get('/', (req, res) => {
+  res.sendFile(path.join(__dirname, 'public', 'index.html'));
+});
 
 const transporter = nodemailer.createTransport({
   host: "mail.citystore.gr",
@@ -43,7 +47,7 @@ function sendReminderEmail(sub){
     subject: `Λήξη Συνδρομής ${sub.subName} για ${sub.clientName} λήγει σε 8 μέρες`,
     text: `The subscription of "${sub.subName}" for client "${sub.clientName}" is expiring on ${sub.expiration}.
   
-  Annual Cost: ${sub.price}€`
+  Cost: ${sub.price}€`
 };
 
 transporter.sendMail(mailOptions, function(error, info){
@@ -59,7 +63,7 @@ transporter.sendMail(mailOptions, function(error, info){
 const db = new sqlite3.Database('./subscriptions.db', connected);
 
 //Daily check time for expiring subs
-cron.schedule('29 12 * * *', () => {
+cron.schedule('0 9 * * *', () => {
   console.log('[CRON] Checking for subscriptions expiring in 8 days...');
 
   //How many days before to check the expiring subs
@@ -159,6 +163,9 @@ app.post('/upload-db', upload.single('database'), (req, res) => {
   res.send('Database uploaded and replaced successfully.');
 });
 
-app.listen(PORT, () => console.log(`Server running on http://localhost:${PORT}`));
+app.listen(PORT, () => {
+  console.log(`Server running on http://localhost:${PORT}`);
+  exec(`start http://localhost:${PORT}`);
+});
 
 

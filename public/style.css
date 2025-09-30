@@ -144,7 +144,7 @@ button {
   }
 
   .logo-icon {
-    max-width: 150px;         
+    max-width: 250px;         
     height: auto;
     margin-bottom: 0.5rem;    
   }
@@ -166,7 +166,7 @@ button {
 /* Mobile adjustments */
 @media (max-width: 768px) {
   .container {
-    margin: 3rem auto 2rem auto;  
+    margin: 9rem auto 2rem auto;  
     width: 90%;                   
     padding: 2.5rem;             
   }
